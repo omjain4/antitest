@@ -48,7 +48,7 @@ export default function ProductPage() {
     const relatedProducts = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
     return (
-        <div className="min-h-screen pt-28 pb-12 px-6 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] relative overflow-hidden">
+        <div className="min-h-screen pt-0 pb-12 px-6 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] relative overflow-hidden">
             {/* Background Decorations */}
             <SpinningMandala className="absolute top-[-150px] right-[-150px] w-[500px] h-[500px] opacity-10 pointer-events-none" color="text-[#b21e29]" />
             <SpinningMandala className="absolute bottom-[-100px] left-[-100px] w-[400px] h-[400px] opacity-5 pointer-events-none" color="text-[#b21e29]" reverse={true} />

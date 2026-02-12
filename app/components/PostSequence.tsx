@@ -33,7 +33,7 @@ function HeroSlider() {
     }, []);
 
     return (
-        <section className="w-full max-w-[1800px] mx-auto px-2 md:px-4 pt-4 pb-6 relative">
+        <section className="w-full max-w-[1800px] mx-auto px-2 md:px-4 pt-6 pb-6 relative">
             <SpinningMandala className="absolute top-4 left-4 text-[#b21e29] w-48 h-48 hidden lg:block opacity-10" />
             <SpinningMandala className="absolute bottom-4 right-4 text-[#b21e29] w-48 h-48 hidden lg:block opacity-10" />
 
@@ -424,7 +424,7 @@ export default function PostSequence() {
     });
 
     return (
-        <div className="min-h-screen pt-28 text-[#3d1a1a] font-sans relative overflow-x-hidden selection:bg-[#b21e29] selection:text-white">
+        <div className="min-h-screen text-[#3d1a1a] font-sans relative overflow-x-hidden selection:bg-[#b21e29] selection:text-white">
             {/* GLOBAL DECORATIONS */}
             <CornerPaisley position="top-left" className="top-32 left-0 opacity-30 hidden 2xl:block scale-150" />
             <CornerPaisley position="top-right" className="top-32 right-0 opacity-30 hidden 2xl:block scale-150" />

@@ -56,59 +56,61 @@ export default function Navbar() {
     }, [isMenuOpen]);
 
     return (
-        <div className="fixed top-0 left-0 right-0 z-50 flex flex-col bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
-            {/* Top Row: Main Nav */}
-            <nav className="h-16 border-b border-[#d4a89a]/20 flex items-center px-4 md:px-8 max-w-[1800px] mx-auto w-full gap-4">
+        <>
+            {/* Top Row: Main Nav (Sticky) */}
+            <div className="sticky top-0 z-50 flex flex-col bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
+                <nav className="h-16 border-b border-[#d4a89a]/20 flex items-center px-4 md:px-8 max-w-[1800px] mx-auto w-full gap-4">
 
-                {/* Left: Brand */}
-                <div className="flex-1 flex justify-start">
-                    <Link href="/" className="flex items-center gap-2 group" onClick={() => setIsMenuOpen(false)}>
-                        <div className="w-3 h-3 rounded-full bg-[#800000] group-hover:scale-110 transition-transform" />
-                        <span className="text-2xl font-black tracking-tighter uppercase text-[#800000]" style={{ fontFamily: "var(--font-heading)" }}>
-                            PARINEY
-                        </span>
-                    </Link>
-                </div>
-
-                {/* Center: Search Pill */}
-                <div className="flex-[2] max-w-xl mx-auto hidden md:flex justify-center">
-                    <div className="flex items-center gap-3 w-full max-w-md px-4 py-2 bg-gray-50 border border-gray-200 rounded-full hover:shadow-sm focus-within:shadow-md focus-within:border-gray-300 transition-all cursor-text text-[#3d1a1a]">
-                        <SearchIcon />
-                        <span className="text-sm font-medium text-gray-500">Discover anything</span>
-                    </div>
-                </div>
-
-                {/* Right: Actions */}
-                <div className="flex-1 flex justify-end items-center gap-6">
-                    <Link href="/search" className="hidden lg:block text-sm font-bold text-[#3d1a1a] hover:text-[#800000] transition-colors">
-                        Collections
-                    </Link>
-                    <Link href="/wishlist" className="hidden lg:block text-sm font-bold text-[#3d1a1a] hover:text-[#800000] transition-colors">
-                        Wishlist {wishlist.length > 0 && `(${wishlist.length})`}
-                    </Link>
-
-                    {/* Cart Icon */}
-                    <Link href="/cart" onClick={() => setIsMenuOpen(false)} className="relative p-2 hover:bg-gray-100 rounded-full transition-colors group">
-                        <BagIcon />
-                        {cartCount > 0 && (
-                            <span className="absolute top-0 right-0 w-4 h-4 bg-[#800000] text-white text-[10px] font-bold flex items-center justify-center rounded-full group-hover:scale-110 transition-transform">
-                                {cartCount}
+                    {/* Left: Brand */}
+                    <div className="flex-1 flex justify-start">
+                        <Link href="/" className="flex items-center gap-2 group" onClick={() => setIsMenuOpen(false)}>
+                            <div className="w-3 h-3 rounded-full bg-[#800000] group-hover:scale-110 transition-transform" />
+                            <span className="text-2xl font-black tracking-tighter uppercase text-[#800000]" style={{ fontFamily: "var(--font-heading)" }}>
+                                PARINEY
                             </span>
-                        )}
-                    </Link>
+                        </Link>
+                    </div>
 
-                    {/* Mobile Menu Toggle */}
-                    <button
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="p-2 border border-gray-200 rounded-full hover:bg-gray-100 transition-colors lg:hidden"
-                    >
-                        {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-                    </button>
-                </div>
-            </nav>
+                    {/* Center: Search Pill */}
+                    <div className="flex-[2] max-w-xl mx-auto hidden md:flex justify-center">
+                        <div className="flex items-center gap-3 w-full max-w-md px-4 py-2 bg-gray-50 border border-gray-200 rounded-full hover:shadow-sm focus-within:shadow-md focus-within:border-gray-300 transition-all cursor-text text-[#3d1a1a]">
+                            <SearchIcon />
+                            <span className="text-sm font-medium text-gray-500">Discover anything</span>
+                        </div>
+                    </div>
 
-            {/* Bottom Row: Sub - Nav (Categories) */}
-            <div className="h-12 flex items-center border-b border-[#d4a89a]/10 bg-white/50 w-full relative">
+                    {/* Right: Actions */}
+                    <div className="flex-1 flex justify-end items-center gap-6">
+                        <Link href="/search" className="hidden lg:block text-sm font-bold text-[#3d1a1a] hover:text-[#800000] transition-colors">
+                            Collections
+                        </Link>
+                        <Link href="/wishlist" className="hidden lg:block text-sm font-bold text-[#3d1a1a] hover:text-[#800000] transition-colors">
+                            Wishlist {wishlist.length > 0 && `(${wishlist.length})`}
+                        </Link>
+
+                        {/* Cart Icon */}
+                        <Link href="/cart" onClick={() => setIsMenuOpen(false)} className="relative p-2 hover:bg-gray-100 rounded-full transition-colors group">
+                            <BagIcon />
+                            {cartCount > 0 && (
+                                <span className="absolute top-0 right-0 w-4 h-4 bg-[#800000] text-white text-[10px] font-bold flex items-center justify-center rounded-full group-hover:scale-110 transition-transform">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </Link>
+
+                        {/* Mobile Menu Toggle */}
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="p-2 border border-gray-200 rounded-full hover:bg-gray-100 transition-colors lg:hidden"
+                        >
+                            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+                        </button>
+                    </div>
+                </nav>
+            </div>
+
+            {/* Bottom Row: Sub - Nav (Static / In-Flow) */}
+            <div className="h-10 flex items-center border-b border-[#d4a89a]/10 bg-white/50 w-full relative z-40">
                 <div className="max-w-[1800px] mx-auto w-full px-4 md:px-8 flex items-center h-full overflow-hidden">
                     {/* Label */}
                     <span className="text-sm font-bold italic text-[#800000] whitespace-nowrap hidden sm:block mr-4 flex-shrink-0" style={{ fontFamily: "var(--font-heading)" }}>
@@ -170,6 +172,6 @@ export default function Navbar() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </>
     );
 }

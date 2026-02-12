@@ -9,7 +9,7 @@ export default function Home() {
     <div className="min-h-screen bg-white/80 backdrop-blur-sm">
       {/* Standard Scroll Layout - No more scroll-jacking canvas */}
       <AnimatePresence mode="wait">
-        <main className="pt-20">
+        <main className="pt-0">
           <PostSequence />
         </main>
       </AnimatePresence>

@@ -37,7 +37,7 @@ export default function CartPage() {
     }
 
     return (
-        <div className="min-h-screen pt-28 pb-12 px-4 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] font-sans relative overflow-hidden">
+        <div className="min-h-screen pt-0 pb-12 px-4 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] font-sans relative overflow-hidden">
             {/* Background Decorations */}
             <SpinningMandala className="absolute top-[-200px] left-[-200px] w-[700px] h-[700px] opacity-5 pointer-events-none" color="text-[#b21e29]" reverse={true} />
             <CornerPaisley position="bottom-right" className="bottom-0 right-0 opacity-5 w-64 h-64" color="text-[#b21e29]" />
