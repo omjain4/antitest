@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCart } from "@/app/context/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
 const SearchIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -36,6 +37,11 @@ const CloseIcon = () => (
 export default function Navbar() {
     const { cartCount, wishlist } = useCart();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const searchParams = useSearchParams();
+    const activeCategory = searchParams.get("category") || "The Latest";
+
+    // Categories list moved from PostSequence
+    const categories = ["The Latest", "Best Sellers", "Banarasi", "Kanjivaram", "Patola", "Chanderi", "Tussar", "Wedding Edit", "New Drops", "Ready to Wear", "Boutique", "Gifts", "Sale"];
 
     // Lock body scroll when menu is open
     useEffect(() => {
@@ -50,58 +56,85 @@ export default function Navbar() {
     }, [isMenuOpen]);
 
     return (
-        <>
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-[#d4a89a]/30 h-20 flex items-center shadow-sm">
-                <div className="max-w-[1400px] mx-auto w-full px-4 md:px-8 flex items-center justify-between gap-4">
+        <div className="fixed top-0 left-0 right-0 z-50 flex flex-col bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
+            {/* Top Row: Main Nav */}
+            <nav className="h-16 border-b border-[#d4a89a]/20 flex items-center px-4 md:px-8 max-w-[1800px] mx-auto w-full gap-4">
 
-                    {/* Left: Brand */}
-                    <Link href="/" className="flex items-center gap-2 group flex-shrink-0 z-50" onClick={() => setIsMenuOpen(false)}>
+                {/* Left: Brand */}
+                <div className="flex-1 flex justify-start">
+                    <Link href="/" className="flex items-center gap-2 group" onClick={() => setIsMenuOpen(false)}>
                         <div className="w-3 h-3 rounded-full bg-[#800000] group-hover:scale-110 transition-transform" />
-                        <div className="flex flex-col leading-none">
-                            <span className="text-2xl font-black tracking-tighter uppercase text-[#800000]" style={{ fontFamily: "var(--font-heading)" }}>
-                                PARINEY
-                            </span>
-                        </div>
+                        <span className="text-2xl font-black tracking-tighter uppercase text-[#800000]" style={{ fontFamily: "var(--font-heading)" }}>
+                            PARINEY
+                        </span>
                     </Link>
+                </div>
 
-                    {/* Center: Search Pill (Desktop) */}
-                    <div className="hidden md:flex flex-1 max-w-md mx-4">
-                        <div className="flex items-center gap-3 w-full px-5 py-3 rounded-full border border-[#d4a89a]/50 shadow-[0_2px_8px_rgba(178,30,41,0.05)] hover:shadow-md transition-shadow bg-white/90 text-[#3d1a1a] cursor-text group focus-within:border-[#800000]">
-                            <SearchIcon />
-                            <span className="text-sm font-bold text-[#8B4513]/70 group-hover:text-[#3d1a1a]">Discover anything</span>
-                        </div>
-                    </div>
-
-                    {/* Right: Actions */}
-                    <div className="flex items-center gap-4 md:gap-6 z-50 text-[#3d1a1a]">
-                        {/* Links (Desktop) */}
-                        <Link href="/search" className="hidden lg:flex items-center gap-2 text-sm font-bold hover:text-[#800000] transition-colors">
-                            <span>Collections</span>
-                        </Link>
-                        <Link href="/wishlist" className="hidden lg:flex items-center gap-2 text-sm font-bold hover:text-[#800000] transition-colors">
-                            <span>Wishlist {wishlist.length > 0 && `(${wishlist.length})`}</span>
-                        </Link>
-
-                        {/* Cart */}
-                        <Link href="/cart" onClick={() => setIsMenuOpen(false)} className="relative p-2 hover:bg-[#b21e29]/10 rounded-full transition-colors group">
-                            <BagIcon />
-                            {cartCount > 0 && (
-                                <span className="absolute top-0 right-0 w-4 h-4 bg-[#800000] text-white text-[10px] font-bold flex items-center justify-center rounded-full group-hover:scale-110 transition-transform">
-                                    {cartCount}
-                                </span>
-                            )}
-                        </Link>
-
-                        {/* Hamburger */}
-                        <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="p-2 border border-[#d4a89a]/50 rounded-full hover:bg-[#b21e29]/10 transition-colors lg:hidden"
-                        >
-                            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-                        </button>
+                {/* Center: Search Pill */}
+                <div className="flex-[2] max-w-xl mx-auto hidden md:flex justify-center">
+                    <div className="flex items-center gap-3 w-full max-w-md px-4 py-2 bg-gray-50 border border-gray-200 rounded-full hover:shadow-sm focus-within:shadow-md focus-within:border-gray-300 transition-all cursor-text text-[#3d1a1a]">
+                        <SearchIcon />
+                        <span className="text-sm font-medium text-gray-500">Discover anything</span>
                     </div>
                 </div>
+
+                {/* Right: Actions */}
+                <div className="flex-1 flex justify-end items-center gap-6">
+                    <Link href="/search" className="hidden lg:block text-sm font-bold text-[#3d1a1a] hover:text-[#800000] transition-colors">
+                        Collections
+                    </Link>
+                    <Link href="/wishlist" className="hidden lg:block text-sm font-bold text-[#3d1a1a] hover:text-[#800000] transition-colors">
+                        Wishlist {wishlist.length > 0 && `(${wishlist.length})`}
+                    </Link>
+
+                    {/* Cart Icon */}
+                    <Link href="/cart" onClick={() => setIsMenuOpen(false)} className="relative p-2 hover:bg-gray-100 rounded-full transition-colors group">
+                        <BagIcon />
+                        {cartCount > 0 && (
+                            <span className="absolute top-0 right-0 w-4 h-4 bg-[#800000] text-white text-[10px] font-bold flex items-center justify-center rounded-full group-hover:scale-110 transition-transform">
+                                {cartCount}
+                            </span>
+                        )}
+                    </Link>
+
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="p-2 border border-gray-200 rounded-full hover:bg-gray-100 transition-colors lg:hidden"
+                    >
+                        {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+                    </button>
+                </div>
             </nav>
+
+            {/* Bottom Row: Sub - Nav (Categories) */}
+            <div className="h-12 flex items-center border-b border-[#d4a89a]/10 bg-white/50 w-full relative">
+                <div className="max-w-[1800px] mx-auto w-full px-4 md:px-8 flex items-center h-full overflow-hidden">
+                    {/* Label */}
+                    <span className="text-sm font-bold italic text-[#800000] whitespace-nowrap hidden sm:block mr-4 flex-shrink-0" style={{ fontFamily: "var(--font-heading)" }}>
+                        Collections
+                    </span>
+
+                    {/* Divider */}
+                    <div className="hidden sm:block w-[1px] h-4 bg-[#d4a89a]/40 mr-4 flex-shrink-0" />
+
+                    {/* Scrollable Categories */}
+                    <div className="flex items-center gap-1 overflow-x-auto pb-1 -mb-1 w-full no-scrollbar">
+                        {categories.map((cat) => {
+                            const isActive = activeCategory === cat || (activeCategory === "All" && cat === "The Latest") || (cat === "The Latest" && !searchParams.get("category"));
+                            return (
+                                <Link
+                                    key={cat}
+                                    href={`/?category=${encodeURIComponent(cat)}`}
+                                    className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold tracking-widest uppercase transition-all duration-300 border ${isActive ? "bg-white border-gray-200 text-[#800000] shadow-sm" : "bg-transparent border-transparent text-[#5a2d2d] hover:bg-gray-50"}`}
+                                >
+                                    {cat}
+                                </Link>
+                            )
+                        })}
+                    </div>
+                </div>
+            </div>
 
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
@@ -111,7 +144,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-40 bg-white pt-24 px-6 pb-6 overflow-y-auto lg:hidden"
+                        className="fixed inset-0 z-40 bg-white pt-32 px-6 pb-6 overflow-y-auto lg:hidden"
                     >
                         <div className="flex flex-col gap-8">
                             {/* Mobile Search */}
@@ -120,60 +153,23 @@ export default function Navbar() {
                                 <input
                                     type="text"
                                     placeholder="Search products..."
-                                    className="bg-transparent w-full outline-none text-sm font-bold placeholder:text-gray-400 text-black"
+                                    className="bg-transparent w-full outline-nonetext-sm placeholder:text-gray-500"
                                 />
                             </div>
 
                             {/* Mobile Links */}
-                            <nav className="flex flex-col gap-6">
-                                <Link
-                                    href="/"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="text-2xl font-bold text-black border-b border-gray-100 pb-4 flex justify-between items-center"
-                                >
-                                    Home
-                                    <span className="text-gray-300 text-lg">→</span>
+                            <div className="flex flex-col gap-6 text-2xl font-light text-[#3d1a1a]">
+                                <Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                                <Link href="/search" onClick={() => setIsMenuOpen(false)}>Collections</Link>
+                                <Link href="/wishlist" onClick={() => setIsMenuOpen(false)}>
+                                    Wishlist <span className="text-sm align-top text-[#800000] font-bold">({wishlist.length})</span>
                                 </Link>
-                                <Link
-                                    href="/search"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="text-2xl font-bold text-black border-b border-gray-100 pb-4 flex justify-between items-center"
-                                >
-                                    Collections
-                                    <span className="text-gray-300 text-lg">→</span>
-                                </Link>
-                                <Link
-                                    href="/wishlist"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="text-2xl font-bold text-black border-b border-gray-100 pb-4 flex justify-between items-center"
-                                >
-                                    Wishlist
-                                    {wishlist.length > 0 && (
-                                        <span className="bg-[#b21e29] text-white text-xs px-2 py-1 rounded-full">{wishlist.length}</span>
-                                    )}
-                                </Link>
-                                <Link
-                                    href="/cart"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="text-2xl font-bold text-black border-b border-gray-100 pb-4 flex justify-between items-center"
-                                >
-                                    My Bag
-                                    {cartCount > 0 && (
-                                        <span className="bg-black text-white text-xs px-2 py-1 rounded-full">{cartCount}</span>
-                                    )}
-                                </Link>
-                            </nav>
-
-                            {/* Mobile Footer Links */}
-                            <div className="mt-auto pt-8 border-t border-gray-100 text-gray-500 text-sm font-medium flex flex-col gap-4">
-                                <Link href="#" className="hover:text-black">Account</Link>
-                                <Link href="#" className="hover:text-black">Help & Support</Link>
-                                <Link href="#" className="hover:text-black">Returns</Link>
+                                <Link href="/account" onClick={() => setIsMenuOpen(false)}>Account</Link>
                             </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </>
+        </div>
     );
 }

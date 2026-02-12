@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { PRODUCTS, HERO_SLIDES, type Product } from "@/data/shopData";
 import { SpinningMandala, CornerPaisley, FloralBorder, PatternDivider, FloatingElements } from "./Decorations";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
@@ -19,40 +20,7 @@ const PlayIcon = () => (
   TRADITIONAL / RINGER HYBRID LAYOUT 
 */
 
-function PillNav({ activeCategory, setActiveCategory }: { activeCategory: string, setActiveCategory: (c: string) => void }) {
-    const categories = ["The Latest", "Best Sellers", "Banarasi", "Kanjivaram", "Patola", "Chanderi", "Tussar", "Wedding Edit", "New Drops", "Ready to Wear", "Boutique", "Gifts", "Sale"];
 
-    return (
-        <div className="sticky top-[5px] z-40 bg-white/85 backdrop-blur-md pt-3 pb-3 overflow-x-auto hide-scrollbar border-b border-[#d4a89a]/30 shadow-sm transition-all duration-300">
-            <div className="flex items-center gap-3 px-4 md:px-8 w-max mx-auto">
-                <span className="text-base font-bold tracking-tight mr-2 italic text-[#800000]" style={{ fontFamily: "var(--font-heading)" }}>Collections</span>
-                <div className="w-[1px] h-4 bg-[#800000]" />
-
-                <LayoutGroup>
-                    {categories.map((cat) => {
-                        const isActive = activeCategory === cat || (activeCategory === "All" && cat === "The Latest");
-                        return (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveCategory(cat === "The Latest" ? "All" : cat)}
-                                className={`relative px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase transition-colors duration-300 z-10 ${isActive ? "text-white" : "text-[#5a2d2d] hover:text-[#800000]"}`}
-                            >
-                                {isActive && (
-                                    <motion.div
-                                        layoutId="activePill"
-                                        className="absolute inset-0 bg-[#800000] rounded-full -z-10 shadow-md"
-                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                    />
-                                )}
-                                {cat}
-                            </button>
-                        );
-                    })}
-                </LayoutGroup>
-            </div>
-        </div>
-    );
-}
 
 function HeroSlider() {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -440,7 +408,8 @@ function PromoBlocks() {
 }
 
 export default function PostSequence() {
-    const [activeCategory, setActiveCategory] = useState("The Latest");
+    const searchParams = useSearchParams();
+    const activeCategory = searchParams.get("category") || "The Latest";
 
     const filteredProducts = PRODUCTS.filter((p) => {
         if (activeCategory === "All" || activeCategory === "The Latest") return true;
@@ -455,12 +424,12 @@ export default function PostSequence() {
     });
 
     return (
-        <div className="min-h-screen text-[#3d1a1a] font-sans relative overflow-x-hidden selection:bg-[#b21e29] selection:text-white">
+        <div className="min-h-screen pt-28 text-[#3d1a1a] font-sans relative overflow-x-hidden selection:bg-[#b21e29] selection:text-white">
             {/* GLOBAL DECORATIONS */}
             <CornerPaisley position="top-left" className="top-32 left-0 opacity-30 hidden 2xl:block scale-150" />
             <CornerPaisley position="top-right" className="top-32 right-0 opacity-30 hidden 2xl:block scale-150" />
 
-            <PillNav activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
+
 
             <main>
                 {/* Editorial Hero Slider */}

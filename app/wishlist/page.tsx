@@ -33,7 +33,7 @@ export default function WishlistPage() {
     }
 
     return (
-        <div className="min-h-screen pt-24 pb-12 px-6 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] relative overflow-hidden">
+        <div className="min-h-screen pt- pb-12 px-6 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] relative overflow-hidden">
             {/* Background Decorations */}
             <SpinningMandala className="absolute top-[-150px] left-[-150px] w-[500px] h-[500px] opacity-10 pointer-events-none" color="text-[#b21e29]" />
             <SpinningMandala className="absolute bottom-[-100px] right-[-100px] w-[400px] h-[400px] opacity-5 pointer-events-none" color="text-[#b21e29]" reverse={true} />

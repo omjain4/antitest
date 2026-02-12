@@ -48,7 +48,7 @@ export default function ProductPage() {
     const relatedProducts = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
     return (
-        <div className="min-h-screen pt-24 pb-12 px-6 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] relative overflow-hidden">
+        <div className="min-h-screen pt-28 pb-12 px-6 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] relative overflow-hidden">
             {/* Background Decorations */}
             <SpinningMandala className="absolute top-[-150px] right-[-150px] w-[500px] h-[500px] opacity-10 pointer-events-none" color="text-[#b21e29]" />
             <SpinningMandala className="absolute bottom-[-100px] left-[-100px] w-[400px] h-[400px] opacity-5 pointer-events-none" color="text-[#b21e29]" reverse={true} />
@@ -132,8 +132,8 @@ export default function ProductPage() {
                                         key={size}
                                         onClick={() => setSelectedSize(size)}
                                         className={`px-4 py-2 text-xs rounded-sm border transition-all ${selectedSize === size
-                                                ? "bg-[#800000] text-white border-[#800000]"
-                                                : "bg-white border-[#d4a89a] text-[#3d1a1a] hover:border-[#800000]"
+                                            ? "bg-[#800000] text-white border-[#800000]"
+                                            : "bg-white border-[#d4a89a] text-[#3d1a1a] hover:border-[#800000]"
                                             }`}
                                     >
                                         {size}
@@ -151,8 +151,8 @@ export default function ProductPage() {
                                         key={color}
                                         onClick={() => setSelectedColor(color)}
                                         className={`px-4 py-2 text-xs rounded-sm border transition-all ${selectedColor === color
-                                                ? "bg-[#800000] text-white border-[#800000]"
-                                                : "bg-white border-[#d4a89a] text-[#3d1a1a] hover:border-[#800000]"
+                                            ? "bg-[#800000] text-white border-[#800000]"
+                                            : "bg-white border-[#d4a89a] text-[#3d1a1a] hover:border-[#800000]"
                                             }`}
                                     >
                                         {color}
@@ -172,8 +172,8 @@ export default function ProductPage() {
                             <button
                                 onClick={() => toggleWishlist(product.id)}
                                 className={`w-14 flex items-center justify-center border rounded-sm text-lg transition-all ${inWishlist
-                                        ? "bg-[#b21e29] text-white border-[#b21e29]"
-                                        : "bg-white border-[#d4a89a] text-[#b21e29] hover:border-[#800000]"
+                                    ? "bg-[#b21e29] text-white border-[#b21e29]"
+                                    : "bg-white border-[#d4a89a] text-[#b21e29] hover:border-[#800000]"
                                     }`}
                                 title={inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
                             >
