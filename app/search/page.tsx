@@ -47,7 +47,7 @@ export default function SearchPage() {
     }, [query, selectedCategory, sortOption]);
 
     return (
-        <div className="min-h-screen pt-24 pb-12 px-6 md:px-12 bg-white/80 backdrop-blur-sm text-ivory relative overflow-hidden">
+        <div className="min-h-screen pt-24 pb-12 px-6 md:px-12 bg-white/80 backdrop-blur-sm text-[#3d1a1a] relative overflow-hidden">
             {/* Background Decorations gold and green */}
             <SpinningMandala className="absolute top-[-150px] left-[-150px] w-[500px] h-[500px] opacity-10 pointer-events-none" color="text-[#b21e29]" />
             <SpinningMandala className="absolute bottom-[-100px] right-[-100px] w-[400px] h-[400px] opacity-5 pointer-events-none" color="text-[#b21e29]" reverse={true} />
@@ -64,10 +64,10 @@ export default function SearchPage() {
                     {/* Header */}
                     <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
                         <div>
-                            <h1 className="text-2xl md:text-3xl italic font-light mb-1" style={{ fontFamily: "var(--font-heading)" }}>
+                            <h1 className="text-2xl md:text-3xl italic font-light mb-1 text-[#800000]" style={{ fontFamily: "var(--font-heading)" }}>
                                 {query ? `Results for "${query}"` : "All Collections"}
                             </h1>
-                            <p className="text-text-dim text-xs tracking-wide">
+                            <p className="text-[#8B4513] text-xs tracking-wide">
                                 {filteredProducts.length} items found
                             </p>
                         </div>
@@ -76,7 +76,7 @@ export default function SearchPage() {
                             <select
                                 value={sortOption}
                                 onChange={(e) => setSortOption(e.target.value)}
-                                className="bg-neutral-warm/20 border border-white/10 text-text-muted text-xs px-4 py-2 rounded-sm outline-none focus:border-gold/30"
+                                className="bg-[#f5e6e0] border border-[#d4a89a] text-[#3d1a1a] text-xs px-4 py-2 rounded-sm outline-none focus:border-[#b21e29]"
                                 style={{ fontFamily: "var(--font-body)" }}
                             >
                                 {FILTERS.sortBy.map(opt => (
@@ -95,7 +95,7 @@ export default function SearchPage() {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
                             >
-                                <p className="text-gold text-xs tracking-[0.2em] uppercase mb-4 font-medium">Categories</p>
+                                <p className="text-[#800000] text-xs tracking-[0.2em] uppercase mb-4 font-semibold">Categories</p>
                                 <div className="flex flex-col gap-2">
                                     {FILTERS.categories.map(cat => (
                                         <label key={cat} className="flex items-center gap-3 cursor-pointer group">
@@ -106,7 +106,7 @@ export default function SearchPage() {
                                                 onChange={() => setSelectedCategory(cat)}
                                                 className="accent-gold w-3 h-3"
                                             />
-                                            <span className="text-text-muted text-xs group-hover:text-ivory transition-colors">
+                                            <span className="text-[#5a2d2d] text-xs group-hover:text-[#800000] transition-colors font-medium">
                                                 {cat}
                                             </span>
                                         </label>
@@ -152,9 +152,9 @@ export default function SearchPage() {
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <p className="text-gold text-[10px] tracking-wider uppercase mb-1">{product.brand}</p>
-                                                    <p className="text-text-muted text-xs truncate mb-1">{product.name}</p>
-                                                    <p className="text-ivory text-sm font-medium">₹{product.price.toLocaleString("en-IN")}</p>
+                                                    <p className="text-[#800000] text-[10px] tracking-wider uppercase mb-1 font-semibold">{product.brand}</p>
+                                                    <p className="text-[#3d1a1a] text-xs truncate mb-1">{product.name}</p>
+                                                    <p className="text-[#b21e29] text-sm font-semibold">₹{product.price.toLocaleString("en-IN")}</p>
                                                 </div>
                                             </Link>
                                         </motion.div>
@@ -162,10 +162,10 @@ export default function SearchPage() {
                                 </motion.div>
                             ) : (
                                 <div className="py-20 text-center">
-                                    <p className="text-text-dim text-sm italic">No products match your criteria.</p>
+                                    <p className="text-[#8B4513] text-sm italic">No products match your criteria.</p>
                                     <button
                                         onClick={() => { setSelectedCategory("All"); }}
-                                        className="mt-4 text-gold text-xs underline underline-offset-4"
+                                        className="mt-4 text-[#b21e29] text-xs underline underline-offset-4 font-medium"
                                     >
                                         Clear Filters
                                     </button>
