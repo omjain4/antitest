@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import Navbar from "./components/Navbar";
 import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
 import { CursorEffect } from "./components/CursorEffect";
 import { FloatingElements, SpinningMandala } from "./components/Decorations";
 import "./globals.css";
@@ -35,17 +37,21 @@ export default function RootLayout({
         className={`${cormorant.variable} ${outfit.variable} antialiased selection:bg-gold/20`}
         style={{ fontFamily: "var(--font-body)" }}
       >
-        <CartProvider>
-          <CursorEffect />
-          <FloatingElements />
-          {/* Permanent decorations behind Navbar */}
-          <div className="fixed top-0 left-0 right-0 h-20 overflow-hidden pointer-events-none z-[40]">
-            <SpinningMandala className="absolute -top-10 -left-10 w-40 h-40 text-[#b21e29] opacity-30" />
-            <SpinningMandala className="absolute -top-10 -right-10 w-60 h-60 text-[#b21e29] opacity-30" reverse />
-          </div>
-          <Navbar />
-          {children}
-        </CartProvider>
+        <Suspense>
+          <AuthProvider>
+            <CartProvider>
+              <CursorEffect />
+              <FloatingElements />
+              {/* Permanent decorations behind Navbar */}
+              <div className="fixed top-0 left-0 right-0 h-20 overflow-hidden pointer-events-none z-[40]">
+                <SpinningMandala className="absolute -top-10 -left-10 w-40 h-40 text-[#b21e29] opacity-30" />
+                <SpinningMandala className="absolute -top-10 -right-10 w-60 h-60 text-[#b21e29] opacity-30" reverse />
+              </div>
+              <Navbar />
+              {children}
+            </CartProvider>
+          </AuthProvider>
+        </Suspense>
       </body>
     </html>
   );

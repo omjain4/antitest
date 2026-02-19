@@ -33,7 +33,7 @@ function HeroSlider() {
     }, []);
 
     return (
-        <section className="w-full max-w-[1800px] mx-auto px-2 md:px-4 pt-6 pb-6 relative">
+        <section className="w-full max-w-[1800px] mx-auto px-2 md:px-4 pt-2 pb-6 relative">
             <SpinningMandala className="absolute top-4 left-4 text-[#b21e29] w-48 h-48 hidden lg:block opacity-10" />
             <SpinningMandala className="absolute bottom-4 right-4 text-[#b21e29] w-48 h-48 hidden lg:block opacity-10" />
 
